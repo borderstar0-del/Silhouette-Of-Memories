@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Silhouette of Memories | Angkatan 2024</title>
+
+<link rel="icon" type="image/png" href="favicon.png">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+    <style>
+    html {
+    scroll-behavior: smooth;
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: #f5f5f5;
+    text-align: center;
+    margin: 0;
+}
+
+section {
+    padding: 80px 20px;
+}
+
+.section-title {
+    color: #d8d0c0;
+    font-size: 32px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+
+.hero {
+    background: linear-gradient(
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.75)
+    ),
+    url("galeri/ggwp.png");
+
+    background-size: 105%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    min-height: 25vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    text-align: center;
+
+    padding: 60px 20px 40px 20px;
+
+    animation: heroZoom 15s ease forwards;
+    
+    transition: all 1s ease;
+    
+    padding-top: 100px;
+    
+}
+
+@keyframes heroZoom{
+    from{
+        background-size:105%;
+    }
+
+    to{
+        background-size:120%;
+    }
+}
+
+.foto-kelas{
+    width: 100%;
+    max-width: 700px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.content {
+    padding: 20px;
+}
+
+.gallery {
+    column-count: 2;
+    column-gap: 12px;
+    padding: 10px;
+}
+
+.gallery img {
+    width: 100%;
+    margin-bottom: 12px;
+    border-radius: 15px;
+    display: block;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.03);
+}
+
+#popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#gambarBesar {
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    margin: 0;
+}
+
+#loading{
+    position:fixed;
+    inset:0;
+
+    background:#000;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:99999;
+
+    transition:opacity 1.5s ease;
+}
+
+.loading-text{
+
+    color:#fff;
+
+    font-size:28px;
+    font-weight:300;
+
+    text-align:center;
+
+    letter-spacing:2px;
+
+    opacity:0;
+
+    animation:fadeIn 1.5s forwards;
+}
+
+.loading-text small{
+
+    display:block;
+
+    margin-top:15px;
+
+    font-size:16px;
+
+    color:#d8d0c0;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+
+    padding: 18px 0;
+
+    background: rgba(0,0,0,0.15);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+
+    z-index: 1000;
+}
+
+nav.scrolled{
+    background: rgba(0,0,0,0.4);
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:#d8d0c0;
+}
+
+.music-btn{
+    position: fixed;
+    top: 70px;
+    right: 20px;
+
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    color: white;
+
+    padding: 12px 18px;
+
+    border-radius: 15px;
+
+    z-index: 1000;
+}
+
+.music-btn:hover{
+    transform: scale(1.05);
+}
+
+.music-btn.playing{
+    background: rgba(216,208,192,0.25);
+
+    border: 1px solid rgba(216,208,192,0.35);
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 32px rgba(216,208,192,.15);
+}
+
+
+.music-btn::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:50%;
+
+    background:linear-gradient(
+        rgba(255,255,255,.18),
+        transparent
+    );
+
+    pointer-events:none;
+}
+
+.siswa {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0 !important; 
+}
+
+.card {
+    background: #1a1a1a;
+    border: 1px solid rgba(216,208,192,0.2);
+    border-radius: 15px;
+    padding: 20px;
+    transition: .3s;
+}
+
+.card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #d8d0c0;
+}
+
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(216,208,192,0.15);
+}
+
+.video-gallery{
+    column-count: 2;
+    column-gap: 15px;
+}
+
+.video-card{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.video-card {
+    background: #1a1a1a;
+    border: 1px solid #d8d0c0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(216, 208, 192, 0.2); 
+}
+
+.video-card video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.video-info {
+    padding: 15px;
+    text-align: left;
+}
+
+.video-info h4 {
+    margin: 0 0 5px 0;
+    color: #d8d0c0;
+    font-size: 16px;
+}
+
+.video-info p {
+    margin: 0;
+    color: #a39e93;
+    font-size: 13px;
+}
+
+#videoPopup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.9);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#videoBesar{
+    width:90%;
+    max-width:900px;
+}
+
+.form-container {
+    background: #1a1a1a;
+    border: 1px solid rgba(216, 208, 192, 0.15);
+    padding: 25px;
+    border-radius: 16px;
+    max-width: 500px;
+    margin: 0 auto 40px auto; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.input-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-container input[type="text"],
+.form-container textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: #111111;
+    border: 1px solid rgba(216, 208, 192, 0.3); 
+    border-radius: 10px;
+    color: #f5f5f5;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.form-container textarea {
+    height: 120px;
+    resize: none; 
+}
+
+.form-container input[type="text"]:focus,
+.form-container textarea:focus {
+    border-color: #d8d0c0; 
+    box-shadow: 0 0 8px rgba(216, 208, 192, 0.2);
+    background: #151515;
+}
+
+.form-container ::placeholder {
+    color: #666;
+    font-size: 14px;
+}
+
+.form-container .memory-btn {
+    width: 100%; 
+    background: #d8d0c0;
+    color: #0f0f0f;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(216, 208, 192, 0.2);
+}
+
+.form-container .memory-btn:hover {
+    background: #c7bea9;
+    transform: translateY(-2px);
+}
+
+.form-container .memory-btn:active {
+    transform: translateY(0);
+}
+
+#daftarPesan {
+    margin-top: 20px;
+}
+
+.memory {
+    background: rgba(26,26,26,0.9);
+
+    border: 1px solid rgba(216,208,192,0.15);
+    border-left: 4px solid #d8d0c0;
+
+    padding: 22px;
+    margin-bottom: 18px;
+
+    border-radius: 18px;
+
+    text-align: left;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+
+    transition: all 0.3s ease;
+}
+
+.memory:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(216,208,192,0.35);
+
+    box-shadow:
+    0 12px 30px rgba(0,0,0,0.5);
+}
+
+.memory p {
+    margin: 0;
+    font-style: italic;
+}
+
+.memory span {
+    display: block;
+    margin-top: 10px;
+    color: #d8d0c0;
+}
+
+footer {
+    margin-top: 30px;
+    padding: 20px;
+    background: #1a1a1a;
+    color: #a39e93;
+}
+
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 26px !important;  
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+    }
+    
+    .hero p {
+        font-size: 13px !important;
+        max-width: 90%; 
+        margin: 4px 0;
+    }
+}
+
+.card h3{
+    color:#d8d0c0;
+    margin-top:20px;
+    margin-bottom:1px;
+}
+
+.card p{
+    color:#cfcfcf;
+    line-height:1.5;
+}
+
+.card p:last-child{
+    color:#a39e93;
+    font-style:italic;
+}
+
+#jumlahMemori{
+    color:#d8d0c0;
+    margin-bottom:25px;
+    font-weight:300;
+    letter-spacing:2px;
+}
+
+.notif{
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #d8d0c0;
+    color: #111;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    z-index: 9999;
+
+    animation: notifMuncul 0.3s ease;
+}
+
+@keyframes notifMuncul{
+    from{
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.memory p {
+    margin: 0;
+    font-style: italic;
+    line-height: 1.6;
+    color: #e5e5e5;
+}
+
+.memory span {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 6px 12px;
+
+    background: rgba(216,208,192,0.1);
+
+    border: 1px solid rgba(216,208,192,0.2);
+
+    border-radius: 20px;
+
+    color: #d8d0c0;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+.memory{
+    animation: fadeMemory 0.6s ease forwards;
+}
+
+@keyframes fadeMemory{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+.stats div{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.1);
+
+    padding:10px 15px;
+
+    border-radius:20px;
+
+    backdrop-filter:blur(10px);
+
+    font-size:14px;
+
+    transition:.3s;
+}
+
+.stats div:hover{
+    transform:translateY(-3px);
+}
+
+.divider{
+    width:120px;
+    height:1px;
+
+    background:linear-gradient(
+        to right,
+        transparent,
+        #d8d0c0,
+        transparent
+    );
+
+    margin:60px auto;
+
+    opacity:.6;
+}
+
+.divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:60px auto;
+
+    color:#d8d0c0;
+
+    opacity:.7;
+}
+
+.divider::before,
+.divider::after{
+    content:"";
+
+    width:80px;
+    height:1px;
+
+    background:#d8d0c0;
+
+    margin:0 15px;
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#0f0f0f;
+}
+
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(
+        180deg,
+        #d8d0c0,
+        #a39e93
+    );
+    border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#c7bea9;
+}
+
+#emptyState{
+    color:#a39e93;
+    padding:40px 20px;
+
+    border:1px dashed rgba(216,208,192,.2);
+    border-radius:16px;
+
+    max-width:500px;
+    margin:20px auto;
+
+    line-height:1.8;
+
+    opacity:.8;
+}
+
+#closeVideo{
+    position:absolute;
+    top:20px;
+    right:25px;
+
+    font-size:32px;
+    color:white;
+
+    cursor:pointer;
+
+    z-index:10000;
+}
+
+#closeVideo:hover{
+    transform:scale(1.2);
+}
+
+#videoBesar{
+    animation: zoomIn .3s ease;
+}
+
+@keyframes zoomIn{
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+#topBtn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+
+    width:50px;
+    height:50px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#d8d0c0;
+    color:#111;
+
+    font-size:22px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    z-index:9999;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+
+    display:none;
+
+    transition:.3s;
+}
+
+#topBtn:hover{
+    transform:translateY(-3px);
+}
+
+#counterKelulusan{
+    margin-top:20px;
+
+    color:#d8d0c0;
+
+    font-size:18px;
+
+    text-align:center;
+
+    line-height:1.8;
+
+    opacity:.9;
+}
+
+#downloadBtn{
+    position:fixed;
+    top:100px;
+    right:20px;
+
+    width:30px;
+    height:30px;
+
+    display:none;
+
+    background:#d8d0c0;
+    color:#111;
+
+    border-radius:50%;
+
+    text-decoration:none;
+
+    font-size:28px;
+    font-weight:bold;
+
+    text-align:center;
+    line-height:30px;
+
+    padding:0;
+
+    z-index:10001;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.3);
+
+    transition:.3s;
+}
+
+#downloadBtn:hover{
+    transform:scale(1.1);
+}
+
+.notice-box{
+    max-width:700px;
+    margin:30px auto;
+
+    padding:25px;
+
+    background:#1a1a1a;
+
+    border-left:4px solid #d8d0c0;
+    border-radius:15px;
+
+    text-align:left;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+
+.notice-box h3{
+    margin-top:0;
+    color:#d8d0c0;
+}
+
+.notice-box p{
+    line-height:1.7;
+    color:#d5d5d5;
+}
+
+.about-class{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+
+.motto{
+    font-size:22px;
+    color:#d8d0c0;
+    line-height:1.8;
+    margin-bottom:40px;
+}
+
+.class-info{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.info-card{
+    background:#1a1a1a;
+    border:1px solid rgba(216,208,192,.15);
+    border-radius:15px;
+    padding:20px;
+    transition:.3s;
+}
+
+.info-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(216,208,192,.15);
+}
+
+.info-card h3{
+    color:#d8d0c0;
+    margin-bottom:10px;
+}
+
+.info-card p{
+    color:#cfcfcf;
+}
+
+.about-text{
+    max-width:700px;
+    margin:auto;
+    color:#d5d5d5;
+    line-height:1.9;
+    font-size:16px;
+}
+
+    </style>
+
+
+
+</head>
+<body>
+  <div id="loading">
+    <div id="loadingText" class="loading-text">
+        Some stories end.
+    </div>
+</div>
+
+<nav>
+    <a href="#beranda">Beranda</a>
+    <a href="#galeri">Galeri</a>
+    <a href="#siswa">Teman</a>
+    <a href="#video">Video</a> 
+
+</nav>
+
+<button
+id="tombolMusik"
+class="music-btn"
+onclick="toggleMusik()">
+🎵 Putar Musik
+</button>
+
+<audio id="musik" loop>
+    <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+    <div class="hero" id="beranda">
+        <h1>silhouette of memories</h1>
+        <p>Angkatan 2024</p>
+        <p>"Some moments fade,
+but their silhouettes remain."</p>
+    </div>
+
+<div class="stats">
+    <div id="jumlahSiswa">👥 0 Students</div>
+    <div id="jumlahFoto">📸 0 Photos</div>
+    <div id="jumlahVideo">🎬 0 Videos</div>
+    <div id="jumlahMemoriesHero">💭 0 Memories</div>
+</div>
+
+    <div class="content">
+        <h2>Selamat Datang</h2>
+
+        <img
+class="foto-kelas"
+src="galeri/kelas.jpg">
+
+<div id="counterKelulusan"></div>
+
+<div class="divider">✦</div>
+
+<section class="about-class" data-aos="fade-up">
+
+    <h2 class="section-title">About The Class</h2>
+
+    <p class="motto">
+        <em>"Some moments fade,<br>
+        but their silhouettes remain."</em>
+    </p>
+
+    <div class="class-info">
+
+    <div class="info-card">
+        <h3>🏫 School</h3>
+        <p>SMA Pemuda Banjaran</p>
+    </div>
+
+    <div class="info-card">
+        <h3>🎓 Graduation</h3>
+        <p>Class of 2024</p>
+    </div>
+
+    <div class="info-card">
+        <h3>👥 Students</h3>
+        <p>37 Students</p>
+    </div>
+
+    <div class="info-card">
+        <h3>👨‍🏫 Homeroom Teacher</h3>
+        <p>Drs. Suhaya</p>
+    </div>
+<div class="info-card">
+    <h3>📅 Graduation Day</h3>
+    <p>03 May 2024</p>
+</div>
+</div>
+
+    <div class="about-text">
+
+    <p>
+        <strong>Silhouette of Memories</strong> is a digital archive
+        dedicated to preserving the stories of the
+        <strong>Class of 2024</strong> from
+        <strong>SMA Pemuda Banjaran</strong>.
+    </p>
+
+    <p>
+        Within these pages live our laughter,
+        friendships, unforgettable moments,
+        and the memories that shaped who we are today.
+    </p>
+
+    <p>
+        <em>
+        "Some moments fade,
+        but their silhouettes remain."
+        </em>
+    </p>
+
+</div>
+
+</section>
+
+<div class="divider">✦</div>
+
+        <p>
+            Website ini dibuat untuk menyimpan
+            kenangan yang pernah kita lalui bersama.
+        </p>
+        
+        <div class="divider">✦</div>
+        
+        <h2 class="section-title">
+Silhouette Collection
+</h2>
+
+<section class="gallery" id="galeri" data-aos="fade-up">
+</section>
+
+<div id="popup" onclick="tutup()">
+
+<a id="downloadBtn" download>↓</a>
+
+    <img
+    id="gambarBesar"
+    onclick="event.stopPropagation()">
+
+</div>
+
+<div class="divider">✦</div>
+
+<div class="notice-box">
+    <h3>📸 Foto profilmu belum sesuai?</h3>
+
+    <p>
+        Saat ini beberapa foto profil diambil dari hasil crop
+        dokumentasi kegiatan kelas karena keterbatasan foto yang tersedia.
+    </p>
+
+    <p>
+        Jika ingin mengganti dengan foto pilihanmu sendiri,
+        kirim foto terbaikmu melalui Instagram kelas.
+    </p>
+
+    <p>
+        Foto akan diperbarui pada pembaruan website berikutnya.
+    </p>
+</div>
+
+        <h2 class="section-title">
+we are
+</h2>
+<section class="siswa" id="siswa" data-aos="fade-up">
+</section>
+
+<div class="divider">✦</div>
+
+
+        <h2 class="section-title">
+video kenangan
+</h2>
+<section class="video-gallery" id="video" data-aos="fade-up">
+</section>
+
+<div id="videoPopup" onclick="tutupVideo()">
+    <span id="closeVideo">✕</span>
+
+    <video
+    id="videoBesar"
+    controls
+    onclick="event.stopPropagation()">
+    </video>
+</div>
+
+<div class="divider">✦</div>
+
+<section class="Memories"
+id="Memories"
+data-aos="fade-up">
+
+    <h2 class="section-title">Wall Of Memories</h2>
+   
+    
+    <div class="form-container">
+        <div class="input-group">
+            <input type="text" id="nama" placeholder="Nama Kamu">
+        </div>
+        
+        <div class="input-group">
+            <textarea id="pesan" placeholder="Tulis kenangan manis atau pesanmu di sini..."></textarea>
+        </div>
+        
+        <button class="memory-btn" onclick="kirimPesan()">
+            Kirim Kenangan ✨
+        </button>
+    </div>
+</section>
+
+<h3 id="jumlahMemori">
+💭 0 Memories Shared
+</h3>
+    <div id="daftarPesan"></div>
+    
+    <div id="emptyState">
+    💭<br>
+    Jadilah orang pertama yang meninggalkan kenangan.
+</div>
+    
+<button id="topBtn" onclick="keAtas()">
+✦
+</button>
+
+<footer>
+    <p>
+For everyone who was once part of Society two.
+<br>
+Thank you for being a chapter in this story.
+</p>
+    <p>Silhouette of Memories © 2026</p>
+</footer>
+
+
+<script>
+function buka(src){
+
+    document.getElementById("popup").style.display = "flex";
+
+    document.getElementById("gambarBesar").src = src;
+
+    const btn =
+    document.getElementById("downloadBtn");
+
+    btn.href = src;
+    btn.style.display = "block";
+}
+
+function tutup(){
+
+    document.getElementById("popup").style.display = "none";
+
+    document.getElementById("downloadBtn").style.display = "none";
+}
+
+
+function toggleMusik(){
+
+    const musik =
+    document.getElementById("musik");
+
+    const tombol =
+    document.getElementById("tombolMusik");
+
+    if(musik.paused){
+
+        musik.play();
+
+        tombol.innerHTML =
+        "⏸ Pause Musik";
+
+        tombol.classList.add("playing");
+
+    }else{
+
+        musik.pause();
+
+        tombol.innerHTML =
+        "🎵 Putar Musik";
+
+        tombol.classList.remove("playing");
+    }
+}
+</script>
+<script>
+fetch("foto.json")
+.then(response => response.json())
+.then(data => {
+
+    const galeri = document.getElementById("galeri");
+
+    data.forEach(foto => {
+      
+      document.getElementById("jumlahFoto").innerHTML =
+`📸 ${data.length} Photos`;
+
+        const img = document.createElement("img");
+
+        img.src = foto;
+        img.onclick = function(){
+            buka(this.src);
+        };
+
+        galeri.appendChild(img);
+
+    });
+
+});
+
+
+
+function bukaVideo(src){
+    const popup =
+    document.getElementById("videoPopup");
+
+    const video =
+    document.getElementById("videoBesar");
+
+    video.src = src;
+    popup.style.display = "flex";
+
+    video.play();
+}
+
+function tutupVideo(){
+    const popup =
+    document.getElementById("videoPopup");
+
+    const video =
+    document.getElementById("videoBesar");
+
+    video.pause();
+    video.src = "";
+
+    popup.style.display = "none";
+}
+
+</script>
+
+
+
+<script>
+fetch("siswa.json")
+.then(response => response.json())
+.then(data => {
+
+    const siswa = document.getElementById("siswa");
+
+    data.forEach(orang => {
+      
+      document.getElementById("jumlahSiswa").innerHTML =
+`👥 ${data.length} Students`;
+
+        siswa.innerHTML += `
+        <div class="card">
+            <img src="${orang.foto}">
+            <h3>${orang.nama}</h3>
+            <p>${orang.deskripsi}</p>
+            <p>"${orang.quote}"</p>
+        </div>
+        `;
+
+    });
+
+});
+</script>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCXCnR4DJXE5rVRABc_Y3hOMTlXe7e_iLc",
+  authDomain: "silhouette-of-memories-16cca.firebaseapp.com",
+  projectId: "silhouette-of-memories-16cca",
+  storageBucket: "silhouette-of-memories-16cca.firebasestorage.app",
+  messagingSenderId: "771498152386",
+  appId: "1:771498152386:web:89c5a753301eab8985465b"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+async function tampilkanPesan(){
+
+    const daftarPesan =
+        document.getElementById("daftarPesan");
+
+    daftarPesan.innerHTML = "";
+
+    
+    const q = query(
+    collection(db,"memories"),
+    orderBy("waktu","desc")
+);
+
+const querySnapshot = await getDocs(q);
+    
+const docs = [];
+
+querySnapshot.forEach((doc)=>{
+    docs.push(doc.data());
+});
+
+
+
+document.getElementById("jumlahMemori").innerHTML =
+`💭 ${docs.length} Memories Shared`;
+
+document.getElementById("jumlahMemoriesHero").innerHTML =
+`💭 ${docs.length} Memories`;
+
+docs.forEach((data)=>{
+
+    daftarPesan.innerHTML += `
+        <div class="memory">
+            <p>"${data.pesan}"</p>
+            <span>✦ ${data.nama}</span>
+        </div>
+    `;
+
+});
+
+const emptyState =
+document.getElementById("emptyState");
+
+if(querySnapshot.empty){
+    emptyState.style.display = "block";
+}else{
+    emptyState.style.display = "none";
+}
+
+}
+
+window.kirimPesan = async function(){
+
+    const nama = document.getElementById("nama").value;
+    const pesan = document.getElementById("pesan").value;
+
+    if(!nama || !pesan){
+        alert("Isi nama dan pesan dulu");
+        return;
+    }
+
+    await addDoc(collection(db,"memories"),{
+        nama:nama,
+        pesan:pesan,
+        waktu:new Date()
+    });
+
+    const notif = document.createElement("div");
+
+notif.innerHTML = "✨ Kenangan berhasil ditambahkan";
+notif.className = "notif";
+
+document.body.appendChild(notif);
+
+setTimeout(() => {
+    notif.remove();
+}, 3000);
+
+tampilkanPesan();
+};
+tampilkanPesan();
+
+document.getElementById("nama").value = "";
+document.getElementById("pesan").value = "";
+
+fetch("video.json")
+.then(response => response.json())
+.then(data => {
+
+    const video = document.getElementById("video");
+
+    data.forEach(item => {
+      
+      document.getElementById("jumlahVideo").innerHTML =
+`🎬 ${data.length} Videos`;
+
+video.innerHTML += `
+<div class="video-card">
+    <video onclick="bukaVideo('${item.file}')" muted preload="metadata">
+        <source src="${item.file}" type="video/mp4">
+    </video>
+
+    <div class="video-info">
+        <h4>${item.judul}</h4>
+        <p>${item.deskripsi}</p>
+    </div>
+</div>
+`;
+ 
+    });
+
+});
+
+
+
+</script>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+AOS.init({
+    duration: 800,
+    once: true
+});
+</script>
+
+<script>
+function keAtas(){
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+window.onscroll = function(){
+
+    const tombol =
+    document.getElementById("topBtn");
+
+    if(document.documentElement.scrollTop > 300){
+        tombol.style.display = "block";
+    }else{
+        tombol.style.display = "none";
+    }
+}
+</script>
+
+<script>
+window.addEventListener("scroll",()=>{
+
+    const nav =
+    document.querySelector("nav");
+
+    if(window.scrollY > 100){
+        nav.classList.add("scrolled");
+    }else{
+        nav.classList.remove("scrolled");
+    }
+
+});
+</script>
+
+<script>
+const hero = document.querySelector(".hero");
+
+const backgrounds = [
+    "galeri/ggwp.png",
+    "galeri/kelas.jpg",
+    "galeri/bukber.jpg",
+  "galeri/pagelaran.jpg",
+  "galeri/bu neni.jpg",
+  "galeri/ayah suhaya.jpg",
+];
+
+let index = 0;
+
+setInterval(() => {
+
+    index++;
+
+    if(index >= backgrounds.length){
+        index = 0;
+    }
+
+    hero.style.background =
+    `linear-gradient(
+        rgba(0,0,0,0.75),
+        rgba(0,0,0,0.75)
+    ),
+    url("${backgrounds[index]}")`;
+
+    hero.style.backgroundSize = "cover";
+    hero.style.backgroundPosition = "center";
+
+}, 5000);
+</script>
+
+<script>
+const tanggalLulus = new Date("2024-05-03");
+
+function updateCounter(){
+
+    const sekarang = new Date();
+
+    let tahun =
+    sekarang.getFullYear() -
+    tanggalLulus.getFullYear();
+
+    let bulan =
+    sekarang.getMonth() -
+    tanggalLulus.getMonth();
+
+    if(bulan < 0){
+        tahun--;
+        bulan += 12;
+    }
+
+    document.getElementById("counterKelulusan").innerHTML =
+    `⏳ Sudah ${tahun} tahun ${bulan} bulan sejak kita meninggalkan kelas itu, namun beberapa siluet masih tinggal di sini.`;
+}
+
+updateCounter();
+</script>
+
+<script>
+const loadingText =
+document.getElementById("loadingText");
+
+setTimeout(()=>{
+
+    loadingText.style.opacity="0";
+
+},1800);
+
+setTimeout(()=>{
+
+    loadingText.innerHTML=
+    "Some memories fade.";
+
+    loadingText.style.opacity="1";
+
+},2500);
+
+setTimeout(()=>{
+
+    loadingText.style.opacity="0";
+
+},4300);
+
+setTimeout(()=>{
+
+    loadingText.innerHTML=
+    "But their silhouettes remain.<br><small>Silhouette of Memories</small>";
+
+    loadingText.style.opacity="1";
+
+},5000);
+
+setTimeout(()=>{
+
+    document.getElementById("loading").style.opacity="0";
+
+},7500);
+
+setTimeout(()=>{
+
+    document.getElementById("loading").style.display="none";
+
+},9000);
+</script>
+
+</body>
+</html>
