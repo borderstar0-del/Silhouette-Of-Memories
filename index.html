@@ -904,6 +904,35 @@ footer {
     font-size:16px;
 }
 
+.skeleton{
+    width:100%;
+    aspect-ratio:1/1;
+    border-radius:12px;
+
+    background:linear-gradient(
+        90deg,
+        #222 25%,
+        #333 50%,
+        #222 75%
+    );
+
+    background-size:200% 100%;
+
+    animation:skeleton 1.2s infinite;
+}
+
+@keyframes skeleton{
+
+0%{
+background-position:200% 0;
+}
+
+100%{
+background-position:-200% 0;
+}
+
+}
+
     </style>
 
 
@@ -1036,6 +1065,14 @@ Silhouette Collection
 </h2>
 
 <section class="gallery" id="galeri" data-aos="fade-up">
+
+<div class="skeleton"></div>
+<div class="skeleton"></div>
+<div class="skeleton"></div>
+<div class="skeleton"></div>
+<div class="skeleton"></div>
+<div class="skeleton"></div>
+
 </section>
 
 <div id="popup" onclick="tutup()">
@@ -1197,6 +1234,7 @@ fetch("foto.json")
 .then(data => {
 
     const galeri = document.getElementById("galeri");
+    galeri.innerHTML = "";
 
     document.getElementById("jumlahFoto").innerHTML =
 `📸 ${data.length} Photos`;
