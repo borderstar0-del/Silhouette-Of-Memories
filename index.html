@@ -1198,23 +1198,32 @@ fetch("foto.json")
 
     const galeri = document.getElementById("galeri");
 
-    data.forEach(foto => {
-      
-      document.getElementById("jumlahFoto").innerHTML =
+    document.getElementById("jumlahFoto").innerHTML =
 `📸 ${data.length} Photos`;
+
+    const fragment = document.createDocumentFragment();
+
+    data.forEach(foto => {
 
         const img = document.createElement("img");
 
         img.src = foto;
+        img.loading = "lazy";
+        img.decoding = "async";
+
         img.onclick = function(){
             buka(this.src);
         };
 
-        galeri.appendChild(img);
+        fragment.appendChild(img);
 
     });
 
+    galeri.appendChild(fragment);
+
 });
+
+
 
 
 
