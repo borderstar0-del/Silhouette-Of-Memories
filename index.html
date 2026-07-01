@@ -1477,20 +1477,21 @@ const backgrounds = [
     "galeri/ggwp.png",
     "galeri/kelas.jpg",
     "galeri/bukber.jpg",
-  "galeri/pagelaran.jpg",
-  "galeri/bu neni.jpg",
-  "galeri/ayah suhaya.jpg",
+    "galeri/pagelaran.jpg",
+    "galeri/bu neni.jpg",
+    "galeri/ayah suhaya.jpg",
 ];
+
+backgrounds.forEach(src => {
+    const img = new Image();
+    img.src = src;
+});
 
 let index = 0;
 
 setInterval(() => {
 
-    index++;
-
-    if(index >= backgrounds.length){
-        index = 0;
-    }
+    index = (index + 1) % backgrounds.length;
 
     hero.style.background =
     `linear-gradient(
@@ -1533,6 +1534,9 @@ updateCounter();
 </script>
 
 <script>
+const loading =
+document.getElementById("loading");
+
 const loadingText =
 document.getElementById("loadingText");
 
@@ -1540,7 +1544,7 @@ setTimeout(()=>{
 
     loadingText.style.opacity="0";
 
-},1800);
+},1200);
 
 setTimeout(()=>{
 
@@ -1549,13 +1553,13 @@ setTimeout(()=>{
 
     loadingText.style.opacity="1";
 
-},2500);
+},1700);
 
 setTimeout(()=>{
 
     loadingText.style.opacity="0";
 
-},4300);
+},2900);
 
 setTimeout(()=>{
 
@@ -1564,19 +1568,19 @@ setTimeout(()=>{
 
     loadingText.style.opacity="1";
 
-},5000);
+},3400);
 
 setTimeout(()=>{
 
-    document.getElementById("loading").style.opacity="0";
+loading.style.opacity="0";
 
-},7500);
+},4800);
 
 setTimeout(()=>{
 
-    document.getElementById("loading").style.display="none";
+loading.style.display="none";
 
-},9000);
+},5500);
 </script>
 
 </body>
